@@ -5,6 +5,8 @@
  */
 package view;
 
+import model.nave;
+
 /**
  *
  * @author mathe
@@ -14,8 +16,14 @@ public class Fase1 extends javax.swing.JFrame {
     /**
      * Creates new form Fase1
      */
+    nave nave;
+
     public Fase1() {
         initComponents();
+        nave = new nave(jLabelNave);
+
+        System.out.println("Jlabel 1 - position x = " + jLabel1.getX() + "|| y = " + jLabel1.getY());
+
     }
 
     /**
@@ -28,23 +36,39 @@ public class Fase1 extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabelNave = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Asteroides");
+        setResizable(false);
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 formKeyTyped(evt);
             }
         });
 
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 530, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(232, 232, 232)
+                .addComponent(jLabelNave)
+                .addContainerGap(298, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 370, Short.MAX_VALUE)
+                .addComponent(jLabelNave)
+                .addGap(36, 36, 36))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -59,26 +83,30 @@ public class Fase1 extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
         // TODO add your handling code here:
-        
-        if(evt.getKeyChar() == 'w'){
-        //andar cima    
+
+        if (evt.getKeyChar() == 'w') {
+            //andar cima    
+            //nave.andarCima();
         }
-        
-        if(evt.getKeyChar() == 'a'){
-        //andar esquerda    
+
+        if (evt.getKeyChar() == 'a') {
+            //andar esquerda 
+            nave.andarEsquerda();
         }
-        
-        if(evt.getKeyChar() == 'd'){
-        //andar direita
+
+        if (evt.getKeyChar() == 'd') {
+            //andar direita
+            nave.andarDireita();
         }
-        if(evt.getKeyChar() == 'k'){
-        //tiro
+        if (evt.getKeyChar() == 'k') {
+            //tiro
         }
-        
+
     }//GEN-LAST:event_formKeyTyped
 
     /**
@@ -117,6 +145,8 @@ public class Fase1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelNave;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
