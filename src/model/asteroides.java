@@ -25,6 +25,14 @@ public class asteroides extends JLabel {
         setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/a.png")));
     }
 
+    public void andarBaixo() {
+        x = getX();
+        y = getY();
+        y++;
+        setBounds(x, y, width, height);
+        System.out.println("Asteroide movido x = " + getX() + " y = " + getY());
+    }
+
     public int getX() {
         return x;
     }
@@ -41,8 +49,4 @@ public class asteroides extends JLabel {
         this.y = y;
     }
 
-    
-    
-    
-    
 }

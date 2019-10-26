@@ -11,43 +11,44 @@ import javax.swing.JLabel;
  *
  * @author mathe
  */
-public class nave {
-
-    private JLabel nave;
+public class nave extends JLabel{
+    
     private int x;
     private int y;
     private static int andar = 25;
     private static int width = 85;
     private static int height = 72;
 
-    public nave(JLabel nave) {
-        this.nave = nave;
-        nave.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/Nave.png")));
+    public nave(int x, int y) {
+        this.x = x;
+        this.y = y;
+        setBounds(x,y,width,height);
+        setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/Nave.png")));
     }
 
     public void andarCima() {
-        x = nave.getX();
-        y = nave.getY();
+        x = getX();
+        y = getY();
         y -= andar;
-        nave.setBounds(x, y, width, height);
+        setBounds(x, y, width, height);
     }
     public void andarBaixo(){
-        x = nave.getX();
-        y = nave.getY();
+        x = getX();
+        y = getY();
         y += andar;
-        nave.setBounds(x, y, width, height);
+        setBounds(x, y, width, height);
     }
     public void andarDireita(){
-        x = nave.getX();
-        y = nave.getY();
+        x = getX();
+        y = getY();
         x += andar;
-        nave.setBounds(x, y, width, height);
+        setBounds(x, y, width, height);
     }
     public void andarEsquerda(){
-        x = nave.getX();
-        y = nave.getY();
+        x = getX();
+        y = getY();
         x -= andar;
-        nave.setBounds(x, y, width, height);
+        setBounds(x, y, width, height);
     }
     
 }
