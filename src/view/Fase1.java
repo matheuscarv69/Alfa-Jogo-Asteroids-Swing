@@ -5,6 +5,8 @@
  */
 package view;
 
+import java.util.Random;
+import model.asteroides;
 import model.nave;
 
 /**
@@ -21,9 +23,11 @@ public class Fase1 extends javax.swing.JFrame {
     public Fase1() {
         initComponents();
         nave = new nave(jLabelNave);
-
-        System.out.println("Jlabel 1 - position x = " + jLabel1.getX() + "|| y = " + jLabel1.getY());
-
+        
+        
+        gerarAst();
+        
+        //System.out.println("Jlabel 1 - position x = " + jLabel1.getX() + "|| y = " + jLabel1.getY());
     }
 
     /**
@@ -35,9 +39,8 @@ public class Fase1 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanelFase1 = new javax.swing.JPanel();
         jLabelNave = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Asteroides");
@@ -48,25 +51,19 @@ public class Fase1 extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("jLabel1");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelFase1Layout = new javax.swing.GroupLayout(jPanelFase1);
+        jPanelFase1.setLayout(jPanelFase1Layout);
+        jPanelFase1Layout.setHorizontalGroup(
+            jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelFase1Layout.createSequentialGroup()
                 .addGap(232, 232, 232)
                 .addComponent(jLabelNave)
                 .addContainerGap(298, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 370, Short.MAX_VALUE)
+        jPanelFase1Layout.setVerticalGroup(
+            jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFase1Layout.createSequentialGroup()
+                .addContainerGap(384, Short.MAX_VALUE)
                 .addComponent(jLabelNave)
                 .addGap(36, 36, 36))
         );
@@ -75,16 +72,47 @@ public class Fase1 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelFase1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelFase1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    public void gerarAst() {
+        new Thread() {
+
+            @Override
+            public void run() {
+                while (true) {
+                    Random random = new Random();
+                    int low = -30; // alterar para -30
+                    int hight = 130;
+                    int right = 489;
+                    int left = -10;
+                    int x = random.nextInt(right - left) + left;
+                    int y = random.nextInt(hight - low) + low;
+
+                    asteroides ast = new asteroides(x, y);
+
+                    jPanelFase1.add(ast);
+
+                    try {
+                        System.out.println("Asteroide criado x = " + ast.getX() + " y = " + ast.getY());
+                        Thread.sleep(2000);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                    jPanelFase1.updateUI();
+
+                }
+            }
+        }.start();
+    }
 
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
         // TODO add your handling code here:
@@ -145,8 +173,7 @@ public class Fase1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelNave;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelFase1;
     // End of variables declaration//GEN-END:variables
 }
