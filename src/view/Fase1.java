@@ -23,14 +23,12 @@ public class Fase1 extends javax.swing.JFrame {
      */
     nave nave;
 
-    //asteroides ast;
     public Fase1() {
         initComponents();
 
         gerarNave();
         gerarAst();
 
-        //System.out.println("JNave - position x = " + jLabelNave.getX() + "|| y = " + jLabelNave.getY());
         //System.out.println("Jlabel 1 - position x = " + ast.getX() + "|| y = " + ast.getY());
     }
 
@@ -103,8 +101,8 @@ public class Fase1 extends javax.swing.JFrame {
             public void run() {
                 while (true) {
                     Random random = new Random();
-                    int low = -30; // alterar para -30
-                    int hight = 130;
+                    int low = -40; // alterar para -30
+                    int hight = 0;
                     int right = 489;
                     int left = -10;
                     int x = random.nextInt(right - left) + left;
@@ -115,8 +113,9 @@ public class Fase1 extends javax.swing.JFrame {
 
                     // movimentação
                     movAst(ast);
+
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(2000);
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
@@ -133,7 +132,7 @@ public class Fase1 extends javax.swing.JFrame {
             public void run() {
                 while (true) {
                     ast.andarBaixo();
-
+                    ast.verExtBaixo();
                     try {
                         Thread.sleep(20);
                     } catch (InterruptedException ex) {
@@ -157,15 +156,19 @@ public class Fase1 extends javax.swing.JFrame {
         if (evt.getKeyChar() == 'a') {
             //andar esquerda 
             nave.andarEsquerda();
+            nave.verExtEsquerda();
         }
 
         if (evt.getKeyChar() == 'd') {
             //andar direita
             nave.andarDireita();
-
+            nave.verExtDireita();
         }
         if (evt.getKeyChar() == 'k') {
             //tiro
+        }
+        if (evt.getKeyChar() == 'p') {
+            //pausa
         }
 
     }//GEN-LAST:event_formKeyTyped

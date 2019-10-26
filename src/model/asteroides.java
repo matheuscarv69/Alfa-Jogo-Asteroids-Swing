@@ -33,6 +33,16 @@ public class asteroides extends JLabel {
         System.out.println("Asteroide movido x = " + getX() + " y = " + getY());
     }
 
+    public void verExtBaixo() {
+        // Seta asteroide para cima caso ele chegue a borda de baixo
+        if (getY() > 420) {
+            int a = getX();
+            this.y = -40;
+            System.out.println("Função - POSIÇÃO X " + a + " | " + "Y " + y);
+            setBounds(a, y, width, height);
+        }
+    }
+
     public int getX() {
         return x;
     }
