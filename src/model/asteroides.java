@@ -30,7 +30,7 @@ public class asteroides extends JLabel {
         y = getY();
         y++;
         setBounds(x, y, width, height);
-        System.out.println("Asteroide movido x = " + getX() + " y = " + getY());
+        //System.out.println("Asteroide movido x = " + getX() + " y = " + getY());
     }
 
     public void verExtBaixo() {
@@ -38,7 +38,7 @@ public class asteroides extends JLabel {
         if (getY() > 420) {
             int a = getX();
             this.y = -40;
-            System.out.println("Função - POSIÇÃO X " + a + " | " + "Y " + y);
+          //System.out.println("Função - POSIÇÃO X " + a + " | " + "Y " + y);
             setBounds(a, y, width, height);
         }
     }

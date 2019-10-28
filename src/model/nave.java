@@ -45,7 +45,7 @@ public class nave extends JLabel {
         x = getX();
         y = getY();
         x += andar;
-        System.out.println("Direita: X - " + getX() + " || " + "Y - " + getY());
+        //System.out.println("Direita: X - " + getX() + " || " + "Y - " + getY());
         setBounds(x, y, width, height);
     }
 
@@ -53,7 +53,7 @@ public class nave extends JLabel {
         x = getX();
         y = getY();
         x -= andar;
-        System.out.println("Direita: X - " + getX() + " || "+ "Y - "+getY());
+        //System.out.println("Direita: X - " + getX() + " || "+ "Y - "+getY());
         setBounds(x, y, width, height);
     }
     
@@ -61,7 +61,7 @@ public class nave extends JLabel {
         if(getX() > 485){
             int a = -60;
             int b = getY();
-            System.out.println("Verificação Direita");
+           // System.out.println("Verificação Direita");
             setBounds(a, b, width,height);
         }
         
@@ -70,25 +70,10 @@ public class nave extends JLabel {
         if(getX() < -60){
             int a = 485;
             int b = getY();
-            System.out.println("Verificação Esquerda");
+            //System.out.println("Verificação Esquerda");
             setBounds(a, b, width,height);
         }
         
     }
-    /*
-    // Seta asteroide para a esquerda caso ele chegue na borda da direita
-            if (asteroide.getX() > 565) {
-                int y = asteroide.getY();
-                int x = -20;
-                System.out.println("Função - POSIÇÃO X " + x + " | " + "Y " + y);
-                asteroide.setBounds(x, y, 65, 65);
-            }
-            // Seta asteroide para direita caso ele chegue na borda da esquerda
-            if (asteroide.getX() < - 20) {
-                int y = asteroide.getY();
-                int x = 565;
-                System.out.println("Função - POSIÇÃO X " + x + " | " + "Y " + y);
-                asteroide.setBounds(x, y, 65, 65);
-            }
-     */
+    
 }

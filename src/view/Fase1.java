@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import model.asteroides;
 import model.nave;
 import javax.swing.ImageIcon;
+import model.Bullets;
 
 /**
  *
@@ -28,7 +29,7 @@ public class Fase1 extends javax.swing.JFrame {
 
         gerarNave();
         gerarAst();
-
+        
         //System.out.println("Jlabel 1 - position x = " + ast.getX() + "|| y = " + ast.getY());
     }
 
@@ -92,6 +93,80 @@ public class Fase1 extends javax.swing.JFrame {
             }
 
         }.start();
+    }
+
+    public void gerarBullet(nave nave) {
+        new Thread() {
+
+            @Override
+            public void run() {
+                //while(true){
+                int a = nave.getX();
+                // Acréscimo de +36 para a bala sair do bico da nave
+                a += 36;
+                int b = nave.getY();
+                b -= 13;
+                
+                Bullets tiro = new Bullets(a, b);
+
+                jPanelFase1.add(tiro);
+                //movimentação
+                movTiro(tiro);
+
+                //}
+            }
+        }.start();
+
+    }
+
+    public void movTiro(Bullets tiro ) {
+        new Thread() {
+
+            @Override
+            public void run() {
+                while (true) {
+                    tiro.movBullet();
+                   
+                    try {
+                        Thread.sleep(20);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+
+                }
+            }
+        }.start();
+    }
+    
+    public void verTiro(asteroides ast , Bullets tiro){
+        new Thread(){
+            
+            @Override
+            public void run(){
+                while(true){
+                    
+                    if((ast.getX() == tiro.getX()) &&(ast.getY() == tiro.getY()) ){
+                        jPanelFase1.remove(ast);
+                        int cont = 0;
+                        System.out.println("Score: " + cont);
+                        
+                    }
+                    
+                    try {
+                        Thread.sleep(0);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                    
+                    
+                }
+            }
+            
+            
+        }.start();
+        
+        
+        
     }
 
     public void gerarAst() {
@@ -166,6 +241,7 @@ public class Fase1 extends javax.swing.JFrame {
         }
         if (evt.getKeyChar() == 'k') {
             //tiro
+            gerarBullet(nave);
         }
         if (evt.getKeyChar() == 'p') {
             //pausa
