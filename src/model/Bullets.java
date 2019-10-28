@@ -5,7 +5,9 @@
  */
 package model;
 
+import java.awt.Rectangle;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -17,7 +19,7 @@ public class Bullets extends JLabel {
     private int y;
     private static int width = 10;
     private static int height = 26;
-
+    
     public Bullets(int x, int y) {
         this.x = x;
         this.y = y;
@@ -26,12 +28,20 @@ public class Bullets extends JLabel {
     }
 
     public void movBullet() {
-        x = getX();
-        y = getY();
+        this.x = getX();
+        this.y = getY();
         y--;
-        System.out.println("Tiro posição X: " + x + "| Y: " + y);
+        //System.out.println("Tiro posição X: " + x + "| Y: " + y);
         setBounds(x, y, width, height);
         //System.out.println("Bullet movimentando");
+    }
+
+    public void verLimite(JPanel jp) {
+        // Seta asteroide para cima caso ele chegue a borda de baixo
+        if (getY() < -10) {
+            jp.remove(this);
+            System.out.println("tiro removido");
+        }
     }
 
     public int getX() {
@@ -48,6 +58,11 @@ public class Bullets extends JLabel {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, width, height);
+
     }
 
 }

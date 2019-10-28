@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.awt.Rectangle;
 import javax.swing.JLabel;
 
 /**
@@ -26,20 +27,20 @@ public class asteroides extends JLabel {
     }
 
     public void andarBaixo() {
-        x = getX();
-        y = getY();
+        this.x = getX();
+        this.y = getY();
         y++;
         setBounds(x, y, width, height);
-        //System.out.println("Asteroide movido x = " + getX() + " y = " + getY());
+        //System.out.println("Asteroide x = " + getX() + " y = " + getY());
     }
 
     public void verExtBaixo() {
         // Seta asteroide para cima caso ele chegue a borda de baixo
         if (getY() > 420) {
-            int a = getX();
+            this.x = getX();
             this.y = -40;
-          //System.out.println("Função - POSIÇÃO X " + a + " | " + "Y " + y);
-            setBounds(a, y, width, height);
+            //System.out.println("Função - POSIÇÃO X " + a + " | " + "Y " + y);
+            setBounds(x, y, width, height);
         }
     }
 
@@ -59,4 +60,8 @@ public class asteroides extends JLabel {
         this.y = y;
     }
 
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, width, height);
+
+    }
 }

@@ -5,12 +5,10 @@
  */
 package view;
 
+import java.awt.Rectangle;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.asteroides;
 import model.nave;
-import javax.swing.ImageIcon;
 import model.Bullets;
 
 /**
@@ -23,13 +21,18 @@ public class Fase1 extends javax.swing.JFrame {
      * Creates new form Fase1
      */
     nave nave;
+    Rectangle formaTiro;
+    Rectangle formaAst;
+    Bullets tiro;
+    asteroides ast;
 
     public Fase1() {
         initComponents();
 
         gerarNave();
         gerarAst();
-        
+        //verTiro();
+        //System.out.println("Tamanho Jpanel: X - " + jPanelFase1.getWidth() + " | Y" + jPanelFase1.getHeight());
         //System.out.println("Jlabel 1 - position x = " + ast.getX() + "|| y = " + ast.getY());
     }
 
@@ -54,7 +57,7 @@ public class Fase1 extends javax.swing.JFrame {
         jPanelFase1.setLayout(jPanelFase1Layout);
         jPanelFase1Layout.setHorizontalGroup(
             jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 530, Short.MAX_VALUE)
+            .addGap(0, 625, Short.MAX_VALUE)
         );
         jPanelFase1Layout.setVerticalGroup(
             jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,8 +83,10 @@ public class Fase1 extends javax.swing.JFrame {
             @Override
             public void run() {
 
-                nave = new nave(232, 330);
+                nave = new nave(312, 330);
                 jPanelFase1.add(nave);
+
+                System.out.println("Nave - x = " + nave.getX() + "|| y = " + nave.getY());
 
                 try {
                     Thread.sleep(0);
@@ -96,39 +101,41 @@ public class Fase1 extends javax.swing.JFrame {
     }
 
     public void gerarBullet(nave nave) {
+
         new Thread() {
 
             @Override
             public void run() {
-                //while(true){
-                int a = nave.getX();
+                int a = nave.getX() + 36;
                 // Acréscimo de +36 para a bala sair do bico da nave
-                a += 36;
-                int b = nave.getY();
-                b -= 13;
-                
-                Bullets tiro = new Bullets(a, b);
+                int b = nave.getY() - 13;
+                // Decremento de -13 para a bala sair mais alto do bico da nave
 
+                //Bullets 
+                tiro = new Bullets(a, b);
                 jPanelFase1.add(tiro);
+                
                 //movimentação
                 movTiro(tiro);
-
-                //}
+               
             }
         }.start();
 
     }
 
-    public void movTiro(Bullets tiro ) {
+    public void movTiro(Bullets tiro) {
         new Thread() {
 
             @Override
             public void run() {
                 while (true) {
                     tiro.movBullet();
-                   
+                    tiro.verLimite(jPanelFase1);
+                    formaTiro = tiro.getBounds();
+                    checaColisao();
+                    System.out.println("Tamanho formaTiro X: " + formaTiro.getX() + "Y : " + formaTiro.getY());
                     try {
-                        Thread.sleep(20);
+                        Thread.sleep(5);
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
@@ -137,36 +144,32 @@ public class Fase1 extends javax.swing.JFrame {
             }
         }.start();
     }
-    
-    public void verTiro(asteroides ast , Bullets tiro){
-        new Thread(){
-            
+
+    public void checaColisao() {
+        if (formaAst.intersects(formaTiro)) {
+            ast.setVisible(false);
+            //tiro.setVisible(false);
+        }
+    }
+
+    public void verTiro() {
+        new Thread() {
+
             @Override
-            public void run(){
-                while(true){
-                    
-                    if((ast.getX() == tiro.getX()) &&(ast.getY() == tiro.getY()) ){
-                        jPanelFase1.remove(ast);
-                        int cont = 0;
-                        System.out.println("Score: " + cont);
-                        
-                    }
-                    
+            public void run() {
+                while (true) {
+                    checaColisao();
                     try {
                         Thread.sleep(0);
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
-                    
-                    
+                    jPanelFase1.updateUI();
                 }
             }
-            
-            
+
         }.start();
-        
-        
-        
+
     }
 
     public void gerarAst() {
@@ -178,12 +181,13 @@ public class Fase1 extends javax.swing.JFrame {
                     Random random = new Random();
                     int low = -40; // alterar para -30
                     int hight = 0;
-                    int right = 489;
+                    int right = 580;
                     int left = -10;
                     int x = random.nextInt(right - left) + left;
                     int y = random.nextInt(hight - low) + low;
 
-                    asteroides ast = new asteroides(x, y);
+                    //asteroides 
+                    ast = new asteroides(x, y);
                     jPanelFase1.add(ast);
 
                     // movimentação
@@ -208,7 +212,11 @@ public class Fase1 extends javax.swing.JFrame {
                 while (true) {
                     ast.andarBaixo();
                     ast.verExtBaixo();
+                    formaAst = ast.getBounds();
+
+                    System.out.println("Tamanho formaAst X: " + ast.getX() + "Y : " + ast.getY());
                     try {
+
                         Thread.sleep(20);
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
@@ -242,6 +250,7 @@ public class Fase1 extends javax.swing.JFrame {
         if (evt.getKeyChar() == 'k') {
             //tiro
             gerarBullet(nave);
+
         }
         if (evt.getKeyChar() == 'p') {
             //pausa

@@ -6,6 +6,7 @@
 package model;
 
 import javax.swing.JLabel;
+import jdk.management.resource.internal.ResourceNatives;
 
 /**
  *
@@ -16,13 +17,19 @@ public class nave extends JLabel {
     private int x;
     private int y;
     private static int andar = 25;
+
     private static int width = 85;
     private static int height = 72;
 
+    /*
+    private static int width = 45;
+    private static int height = 60;
+     */
     public nave(int x, int y) {
         this.x = x;
         this.y = y;
         setBounds(x, y, width, height);
+
         setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/Nave.png")));
     }
 
@@ -56,24 +63,25 @@ public class nave extends JLabel {
         //System.out.println("Direita: X - " + getX() + " || "+ "Y - "+getY());
         setBounds(x, y, width, height);
     }
-    
-    public void verExtDireita(){
-        if(getX() > 485){
-            int a = -60;
+
+    public void verExtDireita() {
+        if (getX() > 580) {
+            int a = -40;
             int b = getY();
-           // System.out.println("Verificação Direita");
-            setBounds(a, b, width,height);
+            // System.out.println("Verificação Direita");
+            setBounds(a, b, width, height);
         }
-        
+
     }
-    public void verExtEsquerda(){
-        if(getX() < -60){
-            int a = 485;
+
+    public void verExtEsquerda() {
+        if (getX() < -60) {
+            int a = 580;
             int b = getY();
             //System.out.println("Verificação Esquerda");
-            setBounds(a, b, width,height);
+            setBounds(a, b, width, height);
         }
-        
+
     }
-    
+
 }
