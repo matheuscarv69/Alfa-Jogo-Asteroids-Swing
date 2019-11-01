@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.awt.Rectangle;
 import javax.swing.JLabel;
 import jdk.management.resource.internal.ResourceNatives;
 
@@ -81,6 +82,9 @@ public class nave extends JLabel {
             //System.out.println("Verificação Esquerda");
             setBounds(a, b, width, height);
         }
+    }
+      public Rectangle getBounds() {
+        return new Rectangle(x, y, width, height);
 
     }
 

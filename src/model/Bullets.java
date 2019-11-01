@@ -19,7 +19,7 @@ public class Bullets extends JLabel {
     private int y;
     private static int width = 10;
     private static int height = 26;
-    
+
     public Bullets(int x, int y) {
         this.x = x;
         this.y = y;
@@ -36,13 +36,16 @@ public class Bullets extends JLabel {
         //System.out.println("Bullet movimentando");
     }
 
+    /*
     public void verLimite(JPanel jp) {
         // Seta asteroide para cima caso ele chegue a borda de baixo
         if (getY() < -10) {
             jp.remove(this);
+            
             System.out.println("tiro removido");
         }
     }
+     */
 
     public int getX() {
         return x;

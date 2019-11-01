@@ -43,6 +43,7 @@ public class asteroides extends JLabel {
             setBounds(x, y, width, height);
         }
     }
+    
 
     public int getX() {
         return x;

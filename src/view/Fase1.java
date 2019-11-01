@@ -10,6 +10,9 @@ import java.util.Random;
 import model.asteroides;
 import model.nave;
 import model.Bullets;
+import control.ThreadAst;
+import control.ThreadBullet;
+import control.ThreadNave;
 
 /**
  *
@@ -21,19 +24,28 @@ public class Fase1 extends javax.swing.JFrame {
      * Creates new form Fase1
      */
     nave nave;
+    /*
     Rectangle formaTiro;
     Rectangle formaAst;
+    
+     */
+    Rectangle formaNave;
+
     Bullets tiro;
     asteroides ast;
+    ThreadAst thAst;
+    ThreadNave thNave;
+    ThreadBullet thBullet;
 
     public Fase1() {
         initComponents();
 
-        gerarNave();
-        gerarAst();
+        thNave = new ThreadNave(nave, jPanelFase1);
+        thAst = new ThreadAst(ast, jPanelFase1);
+        //gerarNave();
+
+        //gerarAst();
         //verTiro();
-        //System.out.println("Tamanho Jpanel: X - " + jPanelFase1.getWidth() + " | Y" + jPanelFase1.getHeight());
-        //System.out.println("Jlabel 1 - position x = " + ast.getX() + "|| y = " + ast.getY());
     }
 
     @SuppressWarnings("unchecked")
@@ -52,6 +64,11 @@ public class Fase1 extends javax.swing.JFrame {
         });
 
         jPanelFase1.setForeground(new java.awt.Color(255, 51, 255));
+        jPanelFase1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanelFase1KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelFase1Layout = new javax.swing.GroupLayout(jPanelFase1);
         jPanelFase1.setLayout(jPanelFase1Layout);
@@ -78,154 +95,6 @@ public class Fase1 extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    public void gerarNave() {
-        new Thread() {
-            @Override
-            public void run() {
-
-                nave = new nave(312, 330);
-                jPanelFase1.add(nave);
-
-                System.out.println("Nave - x = " + nave.getX() + "|| y = " + nave.getY());
-
-                try {
-                    Thread.sleep(0);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                jPanelFase1.updateUI();
-
-            }
-
-        }.start();
-    }
-
-    public void gerarBullet(nave nave) {
-
-        new Thread() {
-
-            @Override
-            public void run() {
-                int a = nave.getX() + 36;
-                // Acréscimo de +36 para a bala sair do bico da nave
-                int b = nave.getY() - 13;
-                // Decremento de -13 para a bala sair mais alto do bico da nave
-
-                //Bullets 
-                tiro = new Bullets(a, b);
-                jPanelFase1.add(tiro);
-                
-                //movimentação
-                movTiro(tiro);
-               
-            }
-        }.start();
-
-    }
-
-    public void movTiro(Bullets tiro) {
-        new Thread() {
-
-            @Override
-            public void run() {
-                while (true) {
-                    tiro.movBullet();
-                    tiro.verLimite(jPanelFase1);
-                    formaTiro = tiro.getBounds();
-                    checaColisao();
-                    System.out.println("Tamanho formaTiro X: " + formaTiro.getX() + "Y : " + formaTiro.getY());
-                    try {
-                        Thread.sleep(5);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-
-                }
-            }
-        }.start();
-    }
-
-    public void checaColisao() {
-        if (formaAst.intersects(formaTiro)) {
-            ast.setVisible(false);
-            //tiro.setVisible(false);
-        }
-    }
-
-    public void verTiro() {
-        new Thread() {
-
-            @Override
-            public void run() {
-                while (true) {
-                    checaColisao();
-                    try {
-                        Thread.sleep(0);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                    jPanelFase1.updateUI();
-                }
-            }
-
-        }.start();
-
-    }
-
-    public void gerarAst() {
-        new Thread() {
-
-            @Override
-            public void run() {
-                while (true) {
-                    Random random = new Random();
-                    int low = -40; // alterar para -30
-                    int hight = 0;
-                    int right = 580;
-                    int left = -10;
-                    int x = random.nextInt(right - left) + left;
-                    int y = random.nextInt(hight - low) + low;
-
-                    //asteroides 
-                    ast = new asteroides(x, y);
-                    jPanelFase1.add(ast);
-
-                    // movimentação
-                    movAst(ast);
-
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                    jPanelFase1.updateUI();
-                }
-            }
-        }.start();
-    }
-
-    public void movAst(asteroides ast) {
-        new Thread() {
-
-            @Override
-            public void run() {
-                while (true) {
-                    ast.andarBaixo();
-                    ast.verExtBaixo();
-                    formaAst = ast.getBounds();
-
-                    System.out.println("Tamanho formaAst X: " + ast.getX() + "Y : " + ast.getY());
-                    try {
-
-                        Thread.sleep(20);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-
-                }
-            }
-        }.start();
-    }
 
 
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
@@ -238,25 +107,47 @@ public class Fase1 extends javax.swing.JFrame {
 
         if (evt.getKeyChar() == 'a') {
             //andar esquerda 
+            thNave.andarEsquerda();
+            thNave.verExtEsquerda();
+            /*
             nave.andarEsquerda();
             nave.verExtEsquerda();
+            /*
+             formaNave = nave.getBounds();
+            thAst = new ThreadAst(formaNave);
+             */
+
         }
 
         if (evt.getKeyChar() == 'd') {
             //andar direita
-            nave.andarDireita();
-            nave.verExtDireita();
+            thNave.andarDireita();
+            thNave.verExtDireita();
+            /*
+            formaNave = nave.getBounds();
+            thAst = new ThreadAst(formaNave);
+            */
+
         }
         if (evt.getKeyChar() == 'k') {
             //tiro
-            gerarBullet(nave);
-
+            thBullet = new ThreadBullet(tiro, thNave.retornaNave(), jPanelFase1);
         }
+        // menu de pausa
         if (evt.getKeyChar() == 'p') {
             //pausa
+            //thBullet.suspende();
+        }
+        if (evt.getKeyChar() == 'ç') {
+            //pausa
+           // thBullet.resumo();
         }
 
     }//GEN-LAST:event_formKeyTyped
+
+    private void jPanelFase1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanelFase1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanelFase1KeyPressed
 
     /**
      * @param args the command line arguments
