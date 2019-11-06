@@ -13,6 +13,8 @@ import model.Bullets;
 import control.ThreadAst;
 import control.ThreadBullet;
 import control.ThreadNave;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,7 +34,7 @@ public class Fase1 extends javax.swing.JFrame {
 
     public Fase1() {
         initComponents();
-
+        
         gerarNave();
         thAst = new ThreadAst(ast, nave, jPanelFase1);
     }
@@ -90,6 +92,36 @@ public class Fase1 extends javax.swing.JFrame {
         jPanelFase1.add(nave);
     }
 
+    public void gerarTiro() {
+        int a = nave.getX() + 36;
+        int b = nave.getY() - 13;
+
+        tiro = new Bullets(a, b);
+        jPanelFase1.add(tiro);
+
+        tiro.movBullet();
+        thAst.getTiro(tiro);
+    }
+
+    /*
+    public void movTiro() {
+        new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    // tiro.movBullet();
+                    
+
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Fase1.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }.start();
+    }
+     */
 
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
         // TODO add your handling code here:
@@ -108,7 +140,9 @@ public class Fase1 extends javax.swing.JFrame {
 
         if (evt.getKeyChar() == 'k') {
             //tiro
-            thBullet = new ThreadBullet(tiro, nave, jPanelFase1);
+            //thBullet = new ThreadBullet(tiro, nave, jPanelFase1);
+            gerarTiro();
+
         }
         // menu de pausa
         if (evt.getKeyChar() == 'p') {

@@ -5,7 +5,8 @@
  */
 package model;
 
-import java.awt.Rectangle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -19,33 +20,49 @@ public class Bullets extends JLabel {
     private int y;
     private static int width = 10;
     private static int height = 26;
+    private JPanel jpanel1;
 
     public Bullets(int x, int y) {
         this.x = x;
         this.y = y;
+        // this.jpanel1 = jpanel1;
         setBounds(x, y, width, height);
         setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/projetil.png")));
     }
 
     public void movBullet() {
-        this.x = getX();
-        this.y = getY();
-        y--;
-        //System.out.println("Tiro posição X: " + x + "| Y: " + y);
-        setBounds(x, y, width, height);
-        //System.out.println("Bullet movimentando");
+        new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    x = getX();
+                    y = getY();
+                    y--;
+                    //System.out.println("Tiro posição X: " + x + "| Y: " + y);
+                    setBounds(x, y, width, height);
+                    if (paraTiro()) {
+                        setVisible(false);
+                        stop();
+                    }
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Bullets.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
+            }
+
+        }.start();
     }
 
-    /*
-    public void verLimite(JPanel jp) {
-        // Seta asteroide para cima caso ele chegue a borda de baixo
-        if (getY() < -10) {
-            jp.remove(this);
-            
-            System.out.println("tiro removido");
+    public boolean paraTiro() {
+        if (getY() == -26) {
+            return true;
+        } else {
+            return false;
         }
     }
-     */
 
     public int getX() {
         return x;
@@ -62,10 +79,4 @@ public class Bullets extends JLabel {
     public void setY(int y) {
         this.y = y;
     }
-
-    public Rectangle getBounds() {
-        return new Rectangle(x, y, width, height);
-
-    }
-
 }
