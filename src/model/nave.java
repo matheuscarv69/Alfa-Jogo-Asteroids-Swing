@@ -22,10 +22,6 @@ public class nave extends JLabel {
     private static int width = 85;
     private static int height = 72;
 
-    /*
-    private static int width = 45;
-    private static int height = 60;
-     */
     public nave(int x, int y) {
         this.x = x;
         this.y = y;
@@ -83,9 +79,6 @@ public class nave extends JLabel {
             setBounds(a, b, width, height);
         }
     }
-      public Rectangle getBounds() {
-        return new Rectangle(x, y, width, height);
-
-    }
+    
 
 }

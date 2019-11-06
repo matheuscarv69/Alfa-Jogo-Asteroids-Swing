@@ -60,9 +60,4 @@ public class asteroides extends JLabel {
     public void setY(int y) {
         this.y = y;
     }
-
-    public Rectangle getBounds() {
-        return new Rectangle(x, y, width, height);
-
-    }
 }

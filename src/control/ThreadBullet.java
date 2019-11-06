@@ -21,14 +21,11 @@ public class ThreadBullet extends Thread {
     private Bullets tiro;
     private nave nave;
     private JPanel jPanel1;
-    private boolean estaSuspensa;
-    private boolean foiTerminado;
 
     public ThreadBullet(Bullets tiro, nave nave, JPanel jPanel1) {
         this.tiro = tiro;
         this.jPanel1 = jPanel1;
         this.nave = nave;
-        this.estaSuspensa = false;
         start();
     }
 
@@ -44,7 +41,7 @@ public class ThreadBullet extends Thread {
 
         //movimentação
         movTiro(tiro);
-       //retiraTiro(tiro);
+        //retiraTiro(tiro);
 
     }
 
@@ -58,11 +55,10 @@ public class ThreadBullet extends Thread {
                     while (true) {
                         tiro.movBullet();
                         System.out.println("Tiro X - " + tiro.getX() + "| Y - " + tiro.getY());
-                        //formaTiro = tiro.getBounds();
-                        //System.out.println("Tamanho formaTiro X: " + formaTiro.getX() + "Y : " + formaTiro.getY());
-                       
-                        //pausaTiro(tiro);
-                        retiraTiro(tiro);
+
+                        if (paraTiro(tiro)) {
+                            stop();
+                        }
 
                         Thread.sleep(5);
                     }
@@ -73,55 +69,12 @@ public class ThreadBullet extends Thread {
         }.start();
     }
 
-    public void retiraTiro(Bullets tiro) {
-        para();
-        try {
-            // mudar para -25
-            if (tiro.getY() == -15) {
-                synchronized (this) {
-                    while (foiTerminado) {
-                        //jPanel1.remove(tiro);
-                        wait();
-                        break;
-                    }
-                    System.out.println("Thread de mov tiro parada");
-
-                }
-            }
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
+    public boolean paraTiro(Bullets tiro) {
+        if (tiro.getY() == -15) {
+            return true;
+        } else {
+            return false;
         }
     }
 
-    public void pausaTiro(Bullets tiro) {
-        try {
-
-            synchronized (this) {
-                while (estaSuspensa) {
-                    //jPanel1.remove(tiro);
-                    wait();
-
-                }
-                System.out.println("Thread de mov tiro parada");
-
-            }
-
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void suspende() {
-        this.estaSuspensa = true;
-    }
-
-    public synchronized void resumo() {
-        this.estaSuspensa = false;
-        notify();
-    }
-
-    public synchronized void para() {
-        this.foiTerminado = true;
-        notify();
-    }
 }

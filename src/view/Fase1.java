@@ -24,13 +24,6 @@ public class Fase1 extends javax.swing.JFrame {
      * Creates new form Fase1
      */
     nave nave;
-    /*
-    Rectangle formaTiro;
-    Rectangle formaAst;
-    
-     */
-    Rectangle formaNave;
-
     Bullets tiro;
     asteroides ast;
     ThreadAst thAst;
@@ -40,12 +33,8 @@ public class Fase1 extends javax.swing.JFrame {
     public Fase1() {
         initComponents();
 
-        thNave = new ThreadNave(nave, jPanelFase1);
-        thAst = new ThreadAst(ast, jPanelFase1);
-        //gerarNave();
-
-        //gerarAst();
-        //verTiro();
+        gerarNave();
+        thAst = new ThreadAst(ast, nave, jPanelFase1);
     }
 
     @SuppressWarnings("unchecked")
@@ -96,51 +85,39 @@ public class Fase1 extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void gerarNave() {
+        nave = new nave(312, 330);
+        jPanelFase1.add(nave);
+    }
+
 
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
         // TODO add your handling code here:
 
-        if (evt.getKeyChar() == 'w') {
-            //andar cima    
-            //nave.andarCima();
-        }
-
         if (evt.getKeyChar() == 'a') {
             //andar esquerda 
-            thNave.andarEsquerda();
-            thNave.verExtEsquerda();
-            /*
             nave.andarEsquerda();
             nave.verExtEsquerda();
-            /*
-             formaNave = nave.getBounds();
-            thAst = new ThreadAst(formaNave);
-             */
-
         }
 
         if (evt.getKeyChar() == 'd') {
-            //andar direita
-            thNave.andarDireita();
-            thNave.verExtDireita();
-            /*
-            formaNave = nave.getBounds();
-            thAst = new ThreadAst(formaNave);
-            */
-
+            //andar esquerda 
+            nave.andarDireita();
+            nave.verExtDireita();
         }
+
         if (evt.getKeyChar() == 'k') {
             //tiro
-            thBullet = new ThreadBullet(tiro, thNave.retornaNave(), jPanelFase1);
+            thBullet = new ThreadBullet(tiro, nave, jPanelFase1);
         }
         // menu de pausa
         if (evt.getKeyChar() == 'p') {
             //pausa
-            //thBullet.suspende();
+
         }
         if (evt.getKeyChar() == 'ç') {
             //pausa
-           // thBullet.resumo();
+
         }
 
     }//GEN-LAST:event_formKeyTyped
