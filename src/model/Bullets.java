@@ -47,7 +47,7 @@ public class Bullets extends JLabel {
                     try {
                         Thread.sleep(5);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(Bullets.class.getName()).log(Level.SEVERE, null, ex);
+                        ex.printStackTrace();
                     }
                 }
 

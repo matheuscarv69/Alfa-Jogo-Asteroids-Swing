@@ -7,6 +7,8 @@ package control;
 
 import java.awt.Rectangle;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import model.Bullets;
 import model.asteroides;
@@ -23,47 +25,86 @@ public class ThreadAst extends Thread {
     private asteroides ast;
     private JPanel jPanel1;
 
-    private int vidas = 3;
-    private boolean status = true;
+    private int x;
+    private int y;
+    private static int width = 87;
+    private static int height = 65;
 
     public ThreadAst(asteroides ast, nave nave, JPanel jPanel1) {
         this.ast = ast;
         this.nave = nave;
-        //Bullets tiro,
-        //this.tiro = tiro;
         this.jPanel1 = jPanel1;
         start();
     }
-
-    public void run() {
-        //gera o asteroide 
-
-        while (true) {
-            Random random = new Random();
-            int low = -30; // alterar para -30
-            int hight = 0;
-            int right = 580;
-            int left = -10;
-            int x = random.nextInt(right - left) + left;
-            int y = random.nextInt(hight - low) + low;
-
-            //asteroides 
-            ast = new asteroides(x, y);
-            jPanel1.add(ast);
-
-            // movimentação
-            movAst(ast);
-
-            //colideNave();
-            try {
-                Thread.sleep(2500);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-            jPanel1.updateUI();
-        }
+    
+    public ThreadAst(Bullets tiro){
+        this.tiro = tiro;
     }
 
+    //@Override
+    public void run() {
+        try {
+            while (true) {
+                ast.movAst();
+
+                if (paraAst()) {
+                   // System.out.println("Ast removido X: " + ast.getX() + " | Y: " + ast.getY());
+                    jPanel1.remove(ast);
+                    stop();
+                }
+                if (colisaoNA()) {
+                    jPanel1.remove(ast);
+                    stop();
+                }
+                /*
+                if(colisaoTA()){
+                    System.out.println("Tiro matou ast");
+                }
+                */
+                Thread.sleep(10);
+            }
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+    
+    public void getTiro(Bullets tiro) {
+        this.tiro = tiro;
+        System.out.println("Get Tiro X: " + tiro.getX() + " | Y: " + tiro.getY());
+    }
+
+    public void getAst(asteroides ast) {
+        this.ast = ast;
+        System.out.println("Ast X: " + ast.getX() + " | Y: " + ast.getY());
+    }
+    
+
+    public boolean colisaoNA() {
+        Rectangle rNave = new Rectangle(nave.getBounds());
+        Rectangle rAst = new Rectangle(ast.getBounds());
+
+        return rAst.intersects(rNave);
+    }
+
+    public boolean colisaoTA() {
+        Rectangle rTiro = new Rectangle(tiro.getBounds());
+        Rectangle rAst = new Rectangle(ast.getBounds());
+
+        return rAst.intersects(rTiro);
+    }
+
+    public boolean paraAst() {
+        //trocar para 420
+        if (ast.getY() > 420) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+/*
     public void movAst(asteroides ast) {
         new Thread() {
 
@@ -83,10 +124,9 @@ public class ThreadAst extends Thread {
                             jPanel1.remove(tiro);
                             jPanel1.remove(ast);
                             System.out.println("tiro");
-                            
+
                             //tiro.setVisible(false);
                             //ast.setVisible(false);
-
                         }
 
                         Thread.sleep(10);
@@ -99,23 +139,4 @@ public class ThreadAst extends Thread {
         }.start();
     }
 
-    public void getTiro(Bullets tiro) {
-        this.tiro = tiro;
-        System.out.println("Tiro " + tiro.getX() + " | " + tiro.getY());
-    }
-
-    public boolean colisaoNA() {
-        Rectangle rNave = new Rectangle(nave.getBounds());
-        Rectangle rAst = new Rectangle(ast.getBounds());
-
-        return rAst.intersects(rNave);
-    }
-
-    public boolean colisaoTA() {
-        Rectangle rTiro = new Rectangle(tiro.getBounds());
-        Rectangle rAst = new Rectangle(ast.getBounds());
-
-        return rTiro.intersects(rAst);
-    }
-
-}
+ */

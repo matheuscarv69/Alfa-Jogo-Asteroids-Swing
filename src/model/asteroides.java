@@ -6,7 +6,10 @@
 package model;
 
 import java.awt.Rectangle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -16,35 +19,35 @@ public class asteroides extends JLabel {
 
     private int x;
     private int y;
+    private JPanel jpanel1;
     private static int width = 87;
     private static int height = 65;
 
-    public asteroides(int x, int y) {
+    public asteroides(int x, int y, JPanel jpanel1) {
         this.x = x;
         this.y = y;
+        this.jpanel1 = jpanel1;
         setBounds(x, y, width, height);
         setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/a.png")));
     }
 
-    public void andarBaixo() {
-        this.x = getX();
-        this.y = getY();
+    public void movAst() {
+        x = getX();
+        y = getY();
         y++;
         setBounds(x, y, width, height);
-        //System.out.println("Asteroide x = " + getX() + " y = " + getY());
+    
     }
-
-    public void verExtBaixo() {
-        // Seta asteroide para cima caso ele chegue a borda de baixo
-        if (getY() > 420) {
-            this.x = getX();
-            this.y = -40;
-            //System.out.println("Função - POSIÇÃO X " + a + " | " + "Y " + y);
-            setBounds(x, y, width, height);
+/*
+    public boolean paraAst() {
+        //trocar para 420
+        if (getY() > 330) {
+            return true;
+        } else {
+            return false;
         }
     }
-    
-
+     */
     public int getX() {
         return x;
     }
