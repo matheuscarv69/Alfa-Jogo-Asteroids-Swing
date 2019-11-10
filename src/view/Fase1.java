@@ -107,11 +107,11 @@ public class Fase1 extends javax.swing.JFrame {
         tiro = new Bullets(a, b);
         jPanelFase1.add(tiro);
 
-        //
-        tiro.movBullet();
+        // função de tiro funcionando perfeitamente
+        // tiro.movBullet();
         
+        // teste de mov de tiro na ThreadAst
         thAst.getTiro(tiro);
-
     }
 
     public void gerarAst() {
@@ -130,7 +130,10 @@ public class Fase1 extends javax.swing.JFrame {
                     ast = new asteroides(x, y, jPanelFase1);
                     jPanelFase1.add(ast);
 
-                    // movimentação funcionando
+                    // instaciação de thAst e movimentação funcionando
+                    //thAst = new ThreadAst(ast, nave, jPanelFase1);
+                    // teste de movimentação de tiro dentro da ThreadAst
+                    // novo teste, agora tirando o tiro do construtor do ThreadAst
                     thAst = new ThreadAst(ast, nave, jPanelFase1);
 
                     try {

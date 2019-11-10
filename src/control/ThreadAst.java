@@ -30,15 +30,21 @@ public class ThreadAst extends Thread {
     private static int width = 87;
     private static int height = 65;
 
+    /* construtor original e funcionando para mov de ast e colisao com a nave
     public ThreadAst(asteroides ast, nave nave, JPanel jPanel1) {
         this.ast = ast;
         this.nave = nave;
         this.jPanel1 = jPanel1;
         start();
     }
-    
-    public ThreadAst(Bullets tiro){
-        this.tiro = tiro;
+     */
+    public ThreadAst(asteroides ast, nave nave, JPanel jPanel1) {
+        this.ast = ast;
+        this.nave = nave;
+        //this.tiro = tiro;
+        //Bullets tiro,
+        this.jPanel1 = jPanel1;
+        start();
     }
 
     //@Override
@@ -48,17 +54,18 @@ public class ThreadAst extends Thread {
                 ast.movAst();
 
                 if (paraAst()) {
-                   // System.out.println("Ast removido X: " + ast.getX() + " | Y: " + ast.getY());
-                    jPanel1.remove(ast);
+                    // System.out.println("Ast removido X: " + ast.getX() + " | Y: " + ast.getY());
+                    // jPanel1.remove(ast);
                     stop();
                 }
+
                 if (colisaoNA()) {
                     jPanel1.remove(ast);
                     stop();
                 }
                 /*
-                if(colisaoTA()){
-                    System.out.println("Tiro matou ast");
+                if (colisaoTA()) {
+
                 }
                 */
                 Thread.sleep(10);
@@ -68,17 +75,45 @@ public class ThreadAst extends Thread {
         }
 
     }
-    
+
     public void getTiro(Bullets tiro) {
         this.tiro = tiro;
-        System.out.println("Get Tiro X: " + tiro.getX() + " | Y: " + tiro.getY());
+        new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    tiro.movTiro();
+
+                    // Função para matar tiro
+                    if (tiro.getY() == -10) {
+                        //System.out.println("Stop thread funcionando");
+                        //jPanel1.remove(tiro);
+                        stop();
+                    }
+                    // Função de colisão tiro com asteroide funcionando
+                    // teste de remoção de asteroide com colisao
+                    if (colisaoTA()) {
+                        System.out.println("Colisao tiro ast");
+                        jPanel1.remove(ast);
+                        stop();
+                    }
+                     
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+
+            }
+
+        }.start();
     }
 
     public void getAst(asteroides ast) {
         this.ast = ast;
         System.out.println("Ast X: " + ast.getX() + " | Y: " + ast.getY());
     }
-    
 
     public boolean colisaoNA() {
         Rectangle rNave = new Rectangle(nave.getBounds());
@@ -91,7 +126,7 @@ public class ThreadAst extends Thread {
         Rectangle rTiro = new Rectangle(tiro.getBounds());
         Rectangle rAst = new Rectangle(ast.getBounds());
 
-        return rAst.intersects(rTiro);
+        return rTiro.intersects(rAst);
     }
 
     public boolean paraAst() {
@@ -102,6 +137,16 @@ public class ThreadAst extends Thread {
             return false;
         }
     }
+    /*
+    public boolean paraTiro() {
+        if (tiro.getY() == -26) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+     */
+
 }
 
 /*

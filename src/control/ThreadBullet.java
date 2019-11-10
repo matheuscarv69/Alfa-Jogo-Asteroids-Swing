@@ -53,7 +53,7 @@ public class ThreadBullet extends Thread {
             public void run() {
                 try {
                     while (true) {
-                        tiro.movBullet();
+                        //tiro.movBullet();
                         //System.out.println("Tiro X - " + tiro.getX() + "| Y - " + tiro.getY());
                         
                         if (paraTiro(tiro)) {

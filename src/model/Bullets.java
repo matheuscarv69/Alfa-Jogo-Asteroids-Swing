@@ -30,6 +30,15 @@ public class Bullets extends JLabel {
         setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/projetil.png")));
     }
 
+    // teste de movimentação do tiro dentro da ThreadASt
+    public void movTiro() {
+        x = getX();
+        y = getY();
+        y--;
+        setBounds(x, y, width, height);
+    }
+
+    /*
     public void movBullet() {
         new Thread() {
             @Override
@@ -63,7 +72,8 @@ public class Bullets extends JLabel {
             return false;
         }
     }
-
+     */
+    
     public int getX() {
         return x;
     }
