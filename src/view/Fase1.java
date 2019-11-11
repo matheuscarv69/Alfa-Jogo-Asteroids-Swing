@@ -44,6 +44,7 @@ public class Fase1 extends javax.swing.JFrame {
 
         jPanelFase1 = new javax.swing.JPanel();
         jLabelScore = new javax.swing.JLabel();
+        jLabelNumScore = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Asteroides");
@@ -61,23 +62,31 @@ public class Fase1 extends javax.swing.JFrame {
             }
         });
 
+        jLabelScore.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabelScore.setText("Score:");
+
+        jLabelNumScore.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
+        jLabelNumScore.setText("0");
 
         javax.swing.GroupLayout jPanelFase1Layout = new javax.swing.GroupLayout(jPanelFase1);
         jPanelFase1.setLayout(jPanelFase1Layout);
         jPanelFase1Layout.setHorizontalGroup(
             jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFase1Layout.createSequentialGroup()
-                .addContainerGap(518, Short.MAX_VALUE)
+            .addGroup(jPanelFase1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabelScore, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelNumScore)
+                .addContainerGap(539, Short.MAX_VALUE))
         );
         jPanelFase1Layout.setVerticalGroup(
             jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFase1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelScore, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(384, Short.MAX_VALUE))
+                .addGroup(jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelScore, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelNumScore, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(381, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -106,11 +115,8 @@ public class Fase1 extends javax.swing.JFrame {
 
         tiro = new Bullets(a, b);
         jPanelFase1.add(tiro);
-
-        // função de tiro funcionando perfeitamente
-        // tiro.movBullet();
         
-        // teste de mov de tiro na ThreadAst
+        // Movimentacao de tiro feita na ThreadAst no metodo getTiro
         thAst.getTiro(tiro);
     }
 
@@ -129,11 +135,8 @@ public class Fase1 extends javax.swing.JFrame {
 
                     ast = new asteroides(x, y, jPanelFase1);
                     jPanelFase1.add(ast);
-
-                    // instaciação de thAst e movimentação funcionando
-                    //thAst = new ThreadAst(ast, nave, jPanelFase1);
-                    // teste de movimentação de tiro dentro da ThreadAst
-                    // novo teste, agora tirando o tiro do construtor do ThreadAst
+                    
+                    // Movimentação de tiro dentro da ThreadAst
                     thAst = new ThreadAst(ast, nave, jPanelFase1);
 
                     try {
@@ -167,6 +170,9 @@ public class Fase1 extends javax.swing.JFrame {
         if (evt.getKeyChar() == 'k') {
             //tiro
             gerarTiro();
+            int score = 0;
+            
+            //jLabelNumScore.setText(String.valueOf(thAst.contPt()));
         }
         // menu de pausa
         if (evt.getKeyChar() == 'p') {
@@ -228,6 +234,7 @@ public class Fase1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabelNumScore;
     private javax.swing.JLabel jLabelScore;
     private javax.swing.JPanel jPanelFase1;
     // End of variables declaration//GEN-END:variables
