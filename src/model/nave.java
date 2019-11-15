@@ -5,9 +5,7 @@
  */
 package model;
 
-import java.awt.Rectangle;
 import javax.swing.JLabel;
-import jdk.management.resource.internal.ResourceNatives;
 
 /**
  *

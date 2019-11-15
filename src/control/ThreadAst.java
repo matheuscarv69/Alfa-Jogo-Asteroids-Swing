@@ -59,6 +59,10 @@ public class ThreadAst extends Thread {
 
                     stop();
                 }
+                // Para o movimento dos asteroides se a qtd de vidas for igual a 0
+                if (Utilidades.lifes == 0) {
+                    stop();
+                }
 
                 Thread.sleep(10);
             }
@@ -89,6 +93,7 @@ public class ThreadAst extends Thread {
                         jPanel1.remove(tiro);
                         jPanel1.validate();
                         jPanel1.repaint();
+
                         // Funcao para parar a movimentacao do asteroide ao ser atingido
                         paraAst();
 
@@ -97,7 +102,7 @@ public class ThreadAst extends Thread {
 
                         stop();
                     }
-                    // Utilidades.tiroAst = false;
+
                     try {
                         Thread.sleep(5);
                     } catch (InterruptedException ex) {

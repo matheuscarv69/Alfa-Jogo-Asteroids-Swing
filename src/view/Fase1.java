@@ -11,6 +11,10 @@ import model.nave;
 import model.Bullets;
 import control.ThreadAst;
 import control.Utilidades;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,22 +25,17 @@ public class Fase1 extends javax.swing.JFrame {
     /**
      * Creates new form Fase1
      */
-    
     nave nave;
     Bullets tiro;
     asteroides ast;
     ThreadAst thAst;
-  
-    
-    boolean inGame = true;
 
     public Fase1() {
         initComponents();
 
         gerarNave();
         gerarAst();
-           
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -44,8 +43,8 @@ public class Fase1 extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelFase1 = new javax.swing.JPanel();
-        jLabelScore = new javax.swing.JLabel();
         jLabelNumScore = new javax.swing.JLabel();
+        jLabelScore = new javax.swing.JLabel();
         jLabelLife = new javax.swing.JLabel();
         jLabelNumLife = new javax.swing.JLabel();
 
@@ -65,11 +64,11 @@ public class Fase1 extends javax.swing.JFrame {
             }
         });
 
-        jLabelScore.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
-        jLabelScore.setText("Score:");
-
         jLabelNumScore.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabelNumScore.setText("0");
+
+        jLabelScore.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
+        jLabelScore.setText("Score:");
 
         jLabelLife.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabelLife.setText("Lifes:");
@@ -82,27 +81,24 @@ public class Fase1 extends javax.swing.JFrame {
         jPanelFase1Layout.setHorizontalGroup(
             jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFase1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addComponent(jLabelLife, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelNumLife)
-                .addGap(29, 29, 29)
+                .addGap(6, 6, 6)
+                .addComponent(jLabelNumLife, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
                 .addComponent(jLabelScore, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelNumScore)
-                .addContainerGap(434, Short.MAX_VALUE))
+                .addGap(6, 6, 6)
+                .addComponent(jLabelNumScore, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelFase1Layout.setVerticalGroup(
             jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFase1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(11, 11, 11)
+                .addGroup(jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelLife, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelNumLife, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelScore, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelNumScore, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabelLife, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabelNumLife, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(381, Short.MAX_VALUE))
+                    .addComponent(jLabelNumScore, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -116,7 +112,7 @@ public class Fase1 extends javax.swing.JFrame {
             .addComponent(jPanelFase1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(641, 456));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -151,14 +147,18 @@ public class Fase1 extends javax.swing.JFrame {
 
                     ast = new asteroides(x, y, jPanelFase1);
                     jPanelFase1.add(ast);
-                    
-                    
+
                     // Movimentação de tiro dentro da ThreadAst
                     thAst = new ThreadAst(ast, nave, jPanelFase1, jLabelNumScore, jLabelNumLife);
 
-              
-                    
-                    
+                    if (Utilidades.lifes == 0) {
+                        // Mostra a quantidade de pontos ao finalizar o jogo
+                        Icon figura = new ImageIcon(getToolkit().createImage(getClass().getResource("../images/Nave.png")));
+                        JOptionPane.showMessageDialog(null, "Você fez " + Utilidades.pontos + " pontos!", "Asteroides", JOptionPane.PLAIN_MESSAGE, figura);
+                        stop();
+
+                    }
+
                     try {
                         Thread.sleep(2300);
                     } catch (InterruptedException ex) {
@@ -175,20 +175,19 @@ public class Fase1 extends javax.swing.JFrame {
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
         // TODO add your handling code here:
 
-        if (evt.getKeyChar() == 'a') {
-            //andar esquerda 
+        //andar Esquerda 
+        if (evt.getKeyChar() == 'a' || evt.getKeyChar() == 'A') {
             nave.andarEsquerda();
             nave.verExtEsquerda();
-        }
 
-        if (evt.getKeyChar() == 'd') {
-            //andar esquerda 
+        }
+        //andar Direita 
+        if (evt.getKeyChar() == 'd' || evt.getKeyChar() == 'D') {
             nave.andarDireita();
             nave.verExtDireita();
         }
-
-        if (evt.getKeyChar() == 'k') {
-            //tiro
+        //tiro
+        if (evt.getKeyChar() == 'k' || evt.getKeyChar() == 'K') {
             gerarTiro();
         }
 
@@ -248,4 +247,5 @@ public class Fase1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelScore;
     private javax.swing.JPanel jPanelFase1;
     // End of variables declaration//GEN-END:variables
+
 }
