@@ -11,7 +11,7 @@ package control;
  */
 public class Utilidades {
 
-    static int pontos = 0;
-    static int lifes = 3;
+    public static int pontos = 0;
+    public static int lifes = 3;
 
 }

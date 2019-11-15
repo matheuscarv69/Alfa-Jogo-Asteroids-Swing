@@ -10,6 +10,7 @@ import model.asteroides;
 import model.nave;
 import model.Bullets;
 import control.ThreadAst;
+import control.Utilidades;
 
 /**
  *
@@ -20,17 +21,22 @@ public class Fase1 extends javax.swing.JFrame {
     /**
      * Creates new form Fase1
      */
+    
     nave nave;
     Bullets tiro;
     asteroides ast;
     ThreadAst thAst;
+  
+    
+    boolean inGame = true;
 
     public Fase1() {
         initComponents();
 
         gerarNave();
         gerarAst();
-
+           
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -145,12 +151,16 @@ public class Fase1 extends javax.swing.JFrame {
 
                     ast = new asteroides(x, y, jPanelFase1);
                     jPanelFase1.add(ast);
-
+                    
+                    
                     // Movimentação de tiro dentro da ThreadAst
                     thAst = new ThreadAst(ast, nave, jPanelFase1, jLabelNumScore, jLabelNumLife);
 
+              
+                    
+                    
                     try {
-                        Thread.sleep(2500);
+                        Thread.sleep(2300);
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
