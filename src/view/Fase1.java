@@ -5,16 +5,11 @@
  */
 package view;
 
-import java.awt.Rectangle;
 import java.util.Random;
 import model.asteroides;
 import model.nave;
 import model.Bullets;
 import control.ThreadAst;
-import control.ThreadBullet;
-import control.ThreadNave;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -45,6 +40,8 @@ public class Fase1 extends javax.swing.JFrame {
         jPanelFase1 = new javax.swing.JPanel();
         jLabelScore = new javax.swing.JLabel();
         jLabelNumScore = new javax.swing.JLabel();
+        jLabelLife = new javax.swing.JLabel();
+        jLabelNumLife = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Asteroides");
@@ -68,16 +65,26 @@ public class Fase1 extends javax.swing.JFrame {
         jLabelNumScore.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabelNumScore.setText("0");
 
+        jLabelLife.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
+        jLabelLife.setText("Lifes:");
+
+        jLabelNumLife.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
+        jLabelNumLife.setText("3");
+
         javax.swing.GroupLayout jPanelFase1Layout = new javax.swing.GroupLayout(jPanelFase1);
         jPanelFase1.setLayout(jPanelFase1Layout);
         jPanelFase1Layout.setHorizontalGroup(
             jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFase1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabelLife, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelNumLife)
+                .addGap(29, 29, 29)
                 .addComponent(jLabelScore, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelNumScore)
-                .addContainerGap(539, Short.MAX_VALUE))
+                .addContainerGap(434, Short.MAX_VALUE))
         );
         jPanelFase1Layout.setVerticalGroup(
             jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,7 +92,10 @@ public class Fase1 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelScore, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelNumScore, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelNumScore, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelFase1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelLife, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelNumLife, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(381, Short.MAX_VALUE))
         );
 
@@ -115,7 +125,7 @@ public class Fase1 extends javax.swing.JFrame {
 
         tiro = new Bullets(a, b);
         jPanelFase1.add(tiro);
-        
+
         // Movimentacao de tiro feita na ThreadAst no metodo getTiro
         thAst.getTiro(tiro);
     }
@@ -135,9 +145,9 @@ public class Fase1 extends javax.swing.JFrame {
 
                     ast = new asteroides(x, y, jPanelFase1);
                     jPanelFase1.add(ast);
-                    
+
                     // Movimentação de tiro dentro da ThreadAst
-                    thAst = new ThreadAst(ast, nave, jPanelFase1);
+                    thAst = new ThreadAst(ast, nave, jPanelFase1, jLabelNumScore, jLabelNumLife);
 
                     try {
                         Thread.sleep(2500);
@@ -170,18 +180,6 @@ public class Fase1 extends javax.swing.JFrame {
         if (evt.getKeyChar() == 'k') {
             //tiro
             gerarTiro();
-            int score = 0;
-            
-            //jLabelNumScore.setText(String.valueOf(thAst.contPt()));
-        }
-        // menu de pausa
-        if (evt.getKeyChar() == 'p') {
-            //pausa
-
-        }
-        if (evt.getKeyChar() == 'ç') {
-            //pausa
-
         }
 
     }//GEN-LAST:event_formKeyTyped
@@ -234,6 +232,8 @@ public class Fase1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabelLife;
+    private javax.swing.JLabel jLabelNumLife;
     private javax.swing.JLabel jLabelNumScore;
     private javax.swing.JLabel jLabelScore;
     private javax.swing.JPanel jPanelFase1;
