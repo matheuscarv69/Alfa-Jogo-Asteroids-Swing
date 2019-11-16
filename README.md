@@ -10,11 +10,11 @@ The new repository can be found at the following link:
 https://github.com/matheuscarv69/Jogo-Asteroide-Swing
 
 Social networks:
-Instagram: @__mmcarvalho
 
+Instagram: @__mmcarvalho
 Facebook: facebook.com/MatheusCarvalhoIX
 
-=======================================================================================
+===============================================================================
 
 # Jogo Asteroides Swing beta
 Rascunho do Trabalho Avaliativo para obtenção de nota na Av2 na disciplina de Programação II.
@@ -28,5 +28,4 @@ https://github.com/matheuscarv69/Jogo-Asteroide-Swing
 
 Redes Sociais:
 Instagram: @__mmcarvalho
-
 Facebook: facebook.com/MatheusCarvalhoIX
