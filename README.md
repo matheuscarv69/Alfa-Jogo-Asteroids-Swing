@@ -1,4 +1,4 @@
-# Asteroids Swing beta game
+# Asteroids Swing Alfa game
 Draft of Work Available for grade exploration on Av2 in the Programming II discipline.
 
 The entire role creation process was performed in this repository, and completion was required
@@ -16,7 +16,7 @@ Facebook: facebook.com/MatheusCarvalhoIX
 
 ===============================================================================
 
-# Jogo Asteroides Swing beta
+# Jogo Asteroides Swing Alfa
 Rascunho do Trabalho Avaliativo para obtenção de nota na Av2 na disciplina de Programação II.
 
 Todo o processo de criação de funções foi realizado nesse repositório, ao término foi necessário 
